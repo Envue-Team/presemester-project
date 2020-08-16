@@ -26,6 +26,7 @@
                             <AddOpportunity v-on:addNewOpportunity="addNewOpportunity"/>
                         </v-col>
                     </v-row>
+                    <v-row class="ma-1">In order to filter by date or by center click the 'Center' or 'Data' buttons below. </v-row>
                 </template>
             </v-data-table>
         </v-row>
@@ -182,5 +183,7 @@
 </script>
 
 <style scoped>
-
+    .message {
+        left: 80px
+    }
 </style>
