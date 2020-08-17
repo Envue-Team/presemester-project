@@ -93,7 +93,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <WarningDialog :item="item" :list="list" :parentDialog="view_volunteer_dialog"/>
-                <EditVolunteer :states="states" :parent-data="item"/>
+                <EditVolunteer :states="states" :centers="centers" :parent-data="item"/>
                 <v-btn color="blue darken-1" text @click="view_volunteer_dialog=false">Close</v-btn>
             </v-card-actions>
         </v-card>
@@ -110,7 +110,8 @@
         props:{
             item: Object,
             list: Array,
-            states: Array
+            states: Array,
+            centers: Array
         },
         methods:{
             getStatusColor(status){

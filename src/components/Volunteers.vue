@@ -3,19 +3,43 @@
         <v-row class="my-0 py-1">
             <v-col cols="4"></v-col>
             <v-col cols="6" align="left">
-                <v-chip :input-value="filters.approved" @click="filters.approved = !filters.approved;" filter color="green">Approved</v-chip>
-                <v-chip :input-value="filters.pending" @click="filters.pending = !filters.pending;" filter color="blue">Pending Approval</v-chip>
-                <v-chip :input-value="filters.disapproved" @click="filters.disapproved = !filters.disapproved;" filter >Disapproved</v-chip>
-                <v-chip :input-value="filters.inactive" @click="filters.inactive = !filters.inactive;" filter color="grey">Inactive</v-chip>
+                <v-chip
+                        :input-value="filters.approved"
+                        @click="filters.approved = !filters.approved;"
+                        filter color="green"
+                >Approved</v-chip>
+                <v-chip
+                        :input-value="filters.pending"
+                        @click="filters.pending = !filters.pending;"
+                        filter color="blue"
+                >Pending Approval</v-chip>
+                <v-chip
+                        :input-value="filters.disapproved"
+                        @click="filters.disapproved = !filters.disapproved;"
+                        filter
+                >Disapproved</v-chip>
+                <v-chip
+                        :input-value="filters.inactive"
+                        @click="filters.inactive = !filters.inactive;"
+                        filter
+                        color="grey"
+                >Inactive</v-chip>
             </v-col>
         </v-row>
         <v-row>
             <v-col cols="4"></v-col>
             <v-col cols="2">
-                <v-text-field placeholder="Search" v-model="search" append-icon="mdi-magnify"></v-text-field>
+                <v-text-field
+                        placeholder="Search"
+                        v-model="search"
+                        append-icon="mdi-magnify"
+                ></v-text-field>
             </v-col>
             <v-col cols="2">
-                <AddVolunteer v-on:saveNewVolunteer="saveNewVolunteer" :states="states"/>
+                <AddVolunteer
+                        v-on:saveNewVolunteer="saveNewVolunteer"
+                        :centers="centers"
+                        :states="states"/>
             </v-col>
         </v-row>
         <v-row>
@@ -23,7 +47,12 @@
             <v-col cols="4">
                 <v-list-item-group v-if="filteredList.length > 0" color="primary" light>
                     <v-list-item v-for="item in filteredList" :key="item">
-                        <ViewVolunteer :item="item" :list="volunteers" :states="states"/> {{item.name.First}} {{item.name.Last}}
+                        <ViewVolunteer
+                                :item="item"
+                                :list="volunteers"
+                                :centers="centers"
+                                :states="states"/>
+                        {{item.name.First}} {{item.name.Last}}
                         <v-list-item-content>
                             <v-list-group>
                                 <v-list-item  v-for="center in item.centers" :key="center">
@@ -51,6 +80,7 @@
             this.email = email;
         }
     }
+
     class Volunteer {
         centers = [];
         skills = [];
@@ -82,7 +112,7 @@
             this.password = 'password';
             this.license_on_file = lof;
             this.social_on_file = sof;
-            // this.centers = centers.split(",");
+            this.centers = centers;
             this.skills = skills;
             this.licenses = licenses;
             this.times = times; //
@@ -91,10 +121,6 @@
             this.email = email; //
             this.education = education; //
             this.emergency_contact = emergency_contact;
-            this.addCenter( 'Reel');
-            this.addCenter( 'Lunk');
-            this.addCenter('Staff');
-            this.addCenter('Curd');
         }
     }
 
@@ -122,6 +148,7 @@
                     'South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island',
                     'Virginia','Washington','West Virginia','Wisconsin','Wyoming'
                 ],
+                centers:['Reel', 'Lunk', 'Staff', 'Curd'],
                 volunteers: [
                     new Volunteer(
                         {First: 'Jeff', Last: 'Barren'},
@@ -309,7 +336,7 @@
         methods:{
             saveNewVolunteer(person) {
                 this.volunteers.push(new Volunteer(
-                    person.name, person.license_on_file, person.social_on_file, person.status, person.centers,
+                    person.name, person.license_on_file, person.social_on_file, person.status, person.centers.split(","),
                     person.skills.split(","), person.times, person.address, person.numbers, person.email,
                     person.education, person.licenses.split(","),
                     new EmergencyContact(person.emergency_contact.name, person.emergency_contact.address,

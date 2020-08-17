@@ -324,6 +324,18 @@
                                 </v-row>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header>Center Preferences</v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <v-row>
+                                    <v-select
+                                            v-model="cents"
+                                            :items="centers"
+                                            multiple>
+                                    </v-select>
+                                </v-row>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
                     </v-expansion-panels>
                 </v-form>
             </v-card-text>
@@ -385,12 +397,14 @@
                 this.parentData.times.Sunday = this.sunday;
                 this.parentData.skills = this.skills.split(",");
                 this.parentData.licenses = this.licenses.split(",");
+                this.parentData.centers = this.cents;
                 this.closeDialog();
             }
         },
         props:{
             parentData: Object,
-            states: Array
+            states: Array,
+            centers: Array
         },
         data(){
             return {
@@ -430,6 +444,7 @@
                 sunday: this.parentData.times.Sunday,
                 skills: this.parentData.skills.join(),
                 licenses: this.parentData.licenses.join(),
+                cents: this.parentData.centers,
                 valid: true,
                 required: [
                     v => !!v || 'This field is required'

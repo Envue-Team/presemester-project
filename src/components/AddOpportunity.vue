@@ -15,14 +15,14 @@
             </v-card-title>
             <v-card-text>
                 <v-form> 
-                    <v-text-field cols="2" v-model="addOppName" name="addOppName" placeholder="Center Name"></v-text-field>
+                    <v-text-field cols="2" v-model="addOppName" :rules="required" name="addOppName" placeholder="Center Name"></v-text-field>
                     <v-date-picker v-model="centerDate" name="centerDate"></v-date-picker>
                 </v-form>
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="add_dialog = false">Close</v-btn>
-                <v-btn color="blue darken-1" text @click="addOpportunity">Save</v-btn>
+                <v-btn color="blue darken-1" :disabled="!valid" text @click="addOpportunity">Save</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -34,6 +34,10 @@
         data(){
             return{
                 add_dialog : false,
+                valid: true,
+                required: [
+                    v => !!v || 'This field is required'
+                ]
             }
         },
         methods:{

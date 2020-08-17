@@ -330,6 +330,18 @@
                                 </v-row>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header>Center Preferences</v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <v-row>
+                                    <v-select
+                                            v-model="prefs"
+                                            :items="centers"
+                                            multiple>
+                                    </v-select>
+                                </v-row>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
                     </v-expansion-panels>
                 </form>
             </v-card-text>
@@ -346,7 +358,8 @@
     export default {
         name: "AddVolunteer",
         props: {
-            states: Array
+            states: Array,
+            centers: Array
         },
         methods: {
             saveNewVolunteer(){
@@ -354,10 +367,11 @@
                     name: {First: this.first_name, Last: this.last_name},
                     license_on_file: this.license_on_file,
                     social_on_file: this.social_on_file,
-                    status: 'approved',
+                    status: 'pending',
                     licenses: this.licenses,
                     skills: this.skills,
-                    times: {Monday: this.monday, Tuesday: this.tuesday, Wednesdayednesday: this.wednesday,
+                    times: {
+                        Monday: this.monday, Tuesday: this.tuesday, Wednesday: this.wednesday,
                         Thursday: this.thursday, Friday: this.friday, Saturday: this.saturday, Sunday: this.sunday},
                     address: {
                         StreetNumber: this.street_number, StreetName: this.street_name,
@@ -376,7 +390,8 @@
                         },
                         numbers: {Home: this.ec_home_phone, Work: this.ec_work_phone},
                         email: this.ec_email
-                    }
+                    },
+                    centers: this.prefs.join()
                 }
                 this.$emit('saveNewVolunteer', volunteer);
                 this.closeDialog();
@@ -420,7 +435,8 @@
                 ec_last_name: '', ec_street_number: '', ec_street_name: '', ec_city: '', ec_state: '',
                 ec_zip: '', ec_home_phone: '', ec_cell_phone: '', ec_work_phone: '', ec_email: '',
                 institution: '', major: '', degree_type: '', monday: '', tuesday: '', wednesday: '',
-                thursday: '', friday: '', saturday: '', sunday: '', skills: '', licenses: '',
+                thursday: '', friday: '', saturday: '', sunday: '', skills: '', licenses: '', prefs:''
+
             }
         }
     }

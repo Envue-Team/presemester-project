@@ -16,7 +16,8 @@
                     name="add-opp-name" 
                     placeholder="Center Name" 
                     :value="parentData.name" 
-                    v-model="opp_name"></v-text-field>
+                    v-model="opp_name"
+                    :rules="required"></v-text-field>
                     <v-date-picker 
                     name="center-date" 
                     v-model="opp_date"></v-date-picker>
@@ -25,7 +26,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="edit_dialog=false">Close</v-btn>
-                <v-btn color="blue darken-1" text @click="saveNewOpportunity">Save</v-btn>
+                <v-btn :disabled="!valid" color="blue darken-1" text @click="saveNewOpportunity">Save</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -55,6 +56,10 @@
             return{
                 edit_dialog : false,
                 opp_name: this.parentData.name,
+                valid: true,
+                required: [
+                    v => !!v || 'This field is required'
+                ],
             } 
         }
     }
